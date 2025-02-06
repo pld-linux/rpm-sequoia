@@ -1,15 +1,16 @@
-%define		crates_ver	1.4.0
+%define		crates_ver	1.7.0
 
 Summary:	An OpenPGP backend for rpm using Sequoia PGP
 Name:		rpm-sequoia
-Version:	1.4.0
+Version:	1.7.0
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	https://github.com/rpm-software-management/rpm-sequoia/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	90e33d96c834e1cf4ac18dcb508d4ecb
+# Source0-md5:	b5ce5f97d776828f8859e21fc69ac43d
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
-# Source1-md5:	b9628f13f5f4a7d78a5aea61cad6bbec
+# Source1-md5:	27e624b42f46a07e3a77d0d94b32a2ba
+Patch0:		use-openssl.patch
 URL:		https://github.com/rpm-software-management/rpm-sequoia
 BuildRequires:	cargo
 BuildRequires:	clang
@@ -19,6 +20,7 @@ BuildRequires:	rpmbuild(macros) >= 2.011
 BuildRequires:	rust >= 1.60.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	crypto-policies
 ExclusiveArch:	%{rust_arches}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,6 +40,7 @@ Development files for rpm-sequoia library.
 
 %prep
 %setup -q -a1
+%patch -P0 -p1
 
 %{__mv} %{name}-%{crates_ver}/* .
 sed -i -e 's/@@VERSION@@/%{version}/' Cargo.lock
