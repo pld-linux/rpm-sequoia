@@ -1,6 +1,7 @@
 %define		crates_ver	1.7.0
 
 Summary:	An OpenPGP backend for rpm using Sequoia PGP
+Summary(pl.UTF-8):	Backend OpenPGP dla rpm-a wykorzystujący Sequoia PGP
 Name:		rpm-sequoia
 Version:	1.7.0
 Release:	1
@@ -18,6 +19,7 @@ BuildRequires:	gmp-devel
 BuildRequires:	nettle-devel
 BuildRequires:	rpmbuild(macros) >= 2.011
 BuildRequires:	rust >= 1.60.0
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	crypto-policies
@@ -27,16 +29,24 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		soname	librpm_sequoia.so.1
 
 %description
-This library provides an implementation of the rpm's pgp interface using
-Sequoia.
+This library provides an implementation of the rpm's pgp interface
+using Sequoia.
+
+%description -l pl.UTF-8
+Ta biblioteka zawiera implementację interfejsu pgp rpm-a
+wykorzystującą Sequoia.
 
 %package devel
 Summary:	Development files for rpm-sequoia library
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki rpm-sequoia
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Development files for rpm-sequoia library.
+
+%description devel -l pl.UTF-8
+Pliki programistyczne biblioteki rpm-sequoia.
 
 %prep
 %setup -q -a1
