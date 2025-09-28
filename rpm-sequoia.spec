@@ -15,7 +15,7 @@ URL:		https://github.com/rpm-software-management/rpm-sequoia
 BuildRequires:	cargo
 BuildRequires:	openssl-devel
 BuildRequires:	rpmbuild(macros) >= 2.011
-BuildRequires:	rust >= 1.60.0
+BuildRequires:	rust >= 1.85.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
