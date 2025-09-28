@@ -14,9 +14,7 @@ Source1:	%{name}-crates-%{crates_ver}.tar.xz
 Patch0:		use-openssl.patch
 URL:		https://github.com/rpm-software-management/rpm-sequoia
 BuildRequires:	cargo
-BuildRequires:	clang
-BuildRequires:	gmp-devel
-BuildRequires:	nettle-devel
+BuildRequires:	openssl-devel
 BuildRequires:	rpmbuild(macros) >= 2.011
 BuildRequires:	rust >= 1.60.0
 BuildRequires:	sed >= 4.0
