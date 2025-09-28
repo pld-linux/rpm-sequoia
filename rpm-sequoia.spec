@@ -11,7 +11,6 @@ Source0:	https://github.com/rpm-software-management/rpm-sequoia/archive/v%{versi
 # Source0-md5:	f3fdda80dad5b6907775c64fec988c04
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
 # Source1-md5:	9f60280809bdeb74d71740449b469f16
-Patch0:		use-openssl.patch
 URL:		https://github.com/rpm-software-management/rpm-sequoia
 BuildRequires:	cargo
 BuildRequires:	openssl-devel
@@ -48,7 +47,6 @@ Pliki programistyczne biblioteki rpm-sequoia.
 
 %prep
 %setup -q -a1
-%patch -P0 -p1
 
 %{__mv} %{name}-%{crates_ver}/* .
 sed -i -e 's/@@VERSION@@/%{version}/' Cargo.lock
@@ -71,7 +69,7 @@ export CARGO_HOME="$(pwd)/.cargo"
 export PREFIX="%{_prefix}"
 export LIBDIR="%{_libdir}"
 
-%cargo_build --frozen
+%cargo_build --frozen --no-default-features -F crypto-openssl
 
 %install
 rm -rf $RPM_BUILD_ROOT
