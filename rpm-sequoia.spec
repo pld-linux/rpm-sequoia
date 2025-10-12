@@ -14,11 +14,12 @@ Source1:	%{name}-crates-%{crates_ver}.tar.xz
 URL:		https://github.com/rpm-software-management/rpm-sequoia
 BuildRequires:	cargo
 BuildRequires:	openssl-devel
-BuildRequires:	rpmbuild(macros) >= 2.011
+BuildRequires:	rpmbuild(macros) >= 2.050
 BuildRequires:	rust >= 1.85.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+%{?rust_req}
 Requires:	crypto-policies
 ExclusiveArch:	%{rust_arches}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
