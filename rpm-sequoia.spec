@@ -4,7 +4,7 @@ Summary:	An OpenPGP backend for rpm using Sequoia PGP
 Summary(pl.UTF-8):	Backend OpenPGP dla rpm-a wykorzystujący Sequoia PGP
 Name:		rpm-sequoia
 Version:	1.9.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Libraries
 Source0:	https://github.com/rpm-software-management/rpm-sequoia/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -74,12 +74,13 @@ export LIBDIR="%{_libdir}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/%{_lib},%{_libdir},%{_pkgconfigdir}}
 
 objdump -p %{cargo_objdir}/librpm_sequoia.so | grep -q 'SONAME[[:space:]]*%{soname}$'
 
-install -D %{cargo_objdir}/librpm_sequoia.so $RPM_BUILD_ROOT/%{_libdir}/%{soname}
-ln -s %{soname} $RPM_BUILD_ROOT/%{_libdir}/librpm_sequoia.so
-install -D %{cargo_targetdir}/%{!?debug:release}%{?debug:debug}/rpm-sequoia.pc $RPM_BUILD_ROOT%{_pkgconfigdir}/rpm-sequoia.pc
+install %{cargo_objdir}/librpm_sequoia.so $RPM_BUILD_ROOT/%{_lib}/%{soname}
+ln -s /%{_lib}/%{soname} $RPM_BUILD_ROOT%{_libdir}/librpm_sequoia.so
+install %{cargo_targetdir}/%{!?debug:release}%{?debug:debug}/rpm-sequoia.pc $RPM_BUILD_ROOT%{_pkgconfigdir}/rpm-sequoia.pc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -90,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README.md
-%attr(755,root,root) %{_libdir}/%{soname}
+%attr(755,root,root) /%{_lib}/%{soname}
 
 %files devel
 %defattr(644,root,root,755)
